@@ -5,7 +5,7 @@ import propTypes from "prop-types";
 
 export class News extends Component {
   static defaultProps = {
-    country: "in",
+    country: "us",
     pageSize: 9,
     category: "general",
   };
@@ -22,10 +22,11 @@ export class News extends Component {
       loading: false,
       page: 1,
     };
+    this.api_key = process.env.REACT_APP_API_KEY;
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9742076d3db1408ea12899ac6763b848&page=1&pageSize=${this.props.pageSize}`;
+    let url = https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${process.env.REACT_APP_API_KEY}&page=1&pageSize=${this.props.pageSize};
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -40,11 +41,11 @@ export class News extends Component {
   }
 
   handlePrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      this.props.country
-    }&${this.props.category}&apiKey=9742076d3db1408ea12899ac6763b848&page=${
-      this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&${
+      this.props.category
+    }&apiKey=${this.api_key}&page=${this.state.page - 1}&pageSize=${
+      this.props.pageSize
+    }`;
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -64,11 +65,11 @@ export class News extends Component {
       Math.ceil(this.state.totalResults / this.props.pageSize)
     ) {
     } else {
-      let url = `https://newsapi.org/v2/top-headlines?country=${
-        this.props.country
-      }&${this.props.category}&apiKey=9742076d3db1408ea12899ac6763b848&page=${
-        this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=us&${
+        this.props.category
+      }&apiKey=${this.api_key}&page=${this.state.page + 1}&pageSize=${
+        this.props.pageSize
+      }`;
       this.setState({ loading: true });
 
       let data = await fetch(url);
