@@ -25,8 +25,8 @@ export class News extends Component {
     this.api_key = process.env.REACT_APP_API_KEY;
   }
 
-  async componentDidMount() {
-    let url = https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${process.env.REACT_APP_API_KEY}&page=1&pageSize=${this.props.pageSize};
+    async componentDidMount() {
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.api_key}&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -35,10 +35,11 @@ export class News extends Component {
 
     this.setState({
       articles: parsedData.articles,
-      totalResults: this.state.totalResults,
+      totalResults: parsedData.totalResults, // Fix: Assign parsed totalResults
       loading: false,
     });
   }
+
 
   handlePrevClick = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=us&${
